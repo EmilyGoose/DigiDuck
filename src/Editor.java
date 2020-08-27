@@ -32,14 +32,13 @@ public class Editor extends JFrame implements ActionListener {
     FileFilter inoFilter = new FileNameExtensionFilter("Arduino Files (*.ino)", "ino");
 
     public Editor() {
-        super("Document");
+        super("DigiDuck Editor");
         setSize(600, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container pane = getContentPane();
         pane.setLayout(new BorderLayout());
 
-        int count = 0;
         pad = " ";
 
         // Make text area
@@ -95,6 +94,13 @@ public class Editor extends JFrame implements ActionListener {
         copyAction.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_DOWN_MASK));
         pasteAction.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_DOWN_MASK));
         selectAction.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK));
+
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            System.out.println("Failed to set look and feel");
+            e.printStackTrace();
+        }
 
         pane.add(scrollPane, BorderLayout.CENTER);
         pane.add(toolBar, BorderLayout.SOUTH);
@@ -233,10 +239,6 @@ public class Editor extends JFrame implements ActionListener {
 
         if (choiceState == JFileChooser.APPROVE_OPTION) {
 
-            // Make sure the user specified a file extension
-            // If not, add one automatically
-            FileFilter chosenExt = fileChooser.getFileFilter();
-
             File chosenFile = fileChooser.getSelectedFile();
             try {
                 BufferedReader reader = new BufferedReader(new FileReader(chosenFile));
@@ -269,10 +271,6 @@ public class Editor extends JFrame implements ActionListener {
         int choiceState = fileChooser.showSaveDialog(null);
 
         if (choiceState == JFileChooser.APPROVE_OPTION) {
-
-            // Make sure the user specified a file extension
-            // If not, add one automatically
-            FileFilter chosenExt = fileChooser.getFileFilter();
 
             String filePath = fileChooser.getSelectedFile().getAbsolutePath();
             if (!filePath.endsWith(".ino")) {

@@ -89,7 +89,7 @@ public class Compiler {
                     // Join the remaining arguments and escape quotes
                     String outputString = String.join(" ", args).replace("\"", "\\\"");
                     // Make sure characters are valid
-                    Pattern charPattern = Pattern.compile("[A-Za-z0-9!-)`~+=_\\-\"':;<,>.?/\\\\\\|]+");
+                    Pattern charPattern = Pattern.compile("[A-Za-z0-9!-)`~+=_\\-\"':;<,>.?/\\\\|]+");
                     if (charPattern.matcher(key).matches()) {
                         return this.cmd("print", String.format("\"%s\"", outputString));
                     }
