@@ -1,6 +1,6 @@
 # DigiDuck
 
-DuckyScript to Digikeyboard compiler and editor for the [Digispark USB Development Board](http://digistump.com/products/1). Made this to replace Duck2Spark.
+DuckyScript to DigiKeyboard compiler and editor for the [Digispark USB Development Board](http://digistump.com/products/1). Made this to replace Duck2Spark.
 
 For more info on DuckyScript read the [documentation](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript).
 

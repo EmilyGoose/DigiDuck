@@ -250,6 +250,7 @@ public class Editor extends JFrame implements ActionListener {
                 // Remove newline at end of file
                 builder.deleteCharAt(builder.length() - 1);
                 textArea.setText(builder.toString());
+                this.currentFilePath = chosenFile.getAbsolutePath();
             } catch (IOException exception) {
                 exception.printStackTrace();
                 JOptionPane.showMessageDialog(this, "An error occurred");
