@@ -29,10 +29,12 @@ public class Compiler {
     public String compile() {
         BufferedReader reader = new BufferedReader(new StringReader(this.editor.getText()));
         String line;
+        // The line separator needs to be here so repeat doesn't break on the first line
+        this.outputCode.append("// Compiled by DigiDuck").append(System.getProperty("line.separator"));
         try {
             while ((line = reader.readLine()) != null) {
                 // Check if a default delay is present at the beginning of the file
-                if ((line.startsWith("DEFAULT_DELAY") || line.startsWith("DEFAULTDELAY"))) {
+                if ((line.startsWith("DEFAULT_DELAY ") || line.startsWith("DEFAULTDELAY "))) {
                     if (this.outputCode.toString().equals("")) {
                         try {
                             // Todo handle too many arguments passed
@@ -48,6 +50,24 @@ public class Compiler {
                         System.out.println("Default delay must be at start of file. Skipping...");
                         // Todo throw error
                     }
+                } else if (line.startsWith("REPEAT ")) {
+                    System.out.println("Repeating");
+                    // Repeat repeats previous line n times, resulting in the line being run n+1 times
+                    // Todo throw error for more than one param
+                    int repeatNum;
+                    try {
+                        repeatNum = Integer.parseInt(line.split(" ")[1]);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        continue;
+                    }
+                    // Get second-last line separator (end of the line before the one we want)
+                    int lastLineSeparator = this.outputCode.substring(0, this.outputCode.length()-1).lastIndexOf(System.getProperty("line.separator"));
+                    // Get the last line of code
+                    String lastLine = this.outputCode.substring(lastLineSeparator + 1,this.outputCode.length());
+                    this.outputCode.append(String.format("for (int i = 0; i < %d; i++) {", repeatNum));
+                    this.outputCode.append(lastLine).append(System.getProperty("line.separator"));
+                    this.outputCode.append("}").append(System.getProperty("line.separator"));
                 } else if (!line.startsWith("REM")) {
                     String[] command = line.split(" ");
                     this.outputCode.append(this.parseCommand(command)).append(System.getProperty("line.separator"));
@@ -56,8 +76,8 @@ public class Compiler {
                     }
                 }
             }
-            String finalCode = String.format(this.codeTemplate, this.outputCode.toString());
-            return finalCode;
+            // Return the output code
+            return String.format(this.codeTemplate, this.outputCode.toString());
         } catch (IOException e) {
             e.printStackTrace();
             return "";
