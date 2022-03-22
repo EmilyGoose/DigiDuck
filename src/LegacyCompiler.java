@@ -8,7 +8,7 @@ import java.io.StringReader;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
-public class Compiler {
+public class LegacyCompiler {
     StringBuilder outputCode;
     Editor editor;
     int defaultDelay = 0;
@@ -19,7 +19,7 @@ public class Compiler {
             "%s" +
             "for(;;){}}";
 
-    Compiler(Editor editor) {
+    LegacyCompiler(Editor editor) {
         this.editor = editor;
         this.outputCode = new StringBuilder();
     }
@@ -84,7 +84,7 @@ public class Compiler {
         }
     }
 
-    private String parseCommand(String[] command) {
+    public String parseCommand(String[] command) {
         String key = command[0];
         String[] args = Arrays.copyOfRange(command, 1, command.length);
         // Switch statement for special commands
@@ -137,7 +137,7 @@ public class Compiler {
         return "";
     }
 
-    private String cmd(String command, String... params) {
+    public String cmd(String command, String... params) {
         return String.format("DigiKeyboard.%s(%s);", command, String.join(",", params));
     }
 }

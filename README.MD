@@ -12,6 +12,8 @@ The Hak5 [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-delu
 
 The editor is written in Java and requires no external dependencies. Simply open the project in your IDE of choice and run `Editor.java`. Runnable jar files will be provided for a future version.
 
+Currently working on rewriting the project to Kotlin before fixing all the jank.
+
 ## Instructions
 
 To use the Digispark board, you'll need to download the board's compatibility package. Add the following URL to your Arduino IDE under **File > Preferences > Additional Boards Manager URLs**:
@@ -20,18 +22,8 @@ To use the Digispark board, you'll need to download the board's compatibility pa
 
 For a more detailed tutorial on setting up the Digispark board, see [this HackerNoon article](https://hackernoon.com/low-cost-usb-rubber-ducky-pen-test-tool-for-3-using-digispark-and-duck2spark-5d59afc1910).
 
-This editor requires replacing your DigiKeyboard.h with the one found in [this gist](https://gist.github.com/MishaLarionov/16bd8b67982ad84dfc79d425e6d8f077), as the original leaves out a few important keys. Currently looking into making the editor do this automatically.
+This editor requires replacing your DigiKeyboard.h with the one found in [this gist](https://gist.github.com/EmilyGoose/16bd8b67982ad84dfc79d425e6d8f077), as the original leaves out a few important keys. Currently looking into making the editor do this automatically.
 
 Note: The compiler doesn't check if the compiled code is larger than the board will allow. If you're getting an error uploading, try reducing the size of your script.
-
-## Progress
-
-| Item | Status |
-|---|---|
-| Basic editor | Done |
-| Basic compiler | Done |
-| More detailed compiler errors | In Progress |
-| Syntax highlighting | To-Do |
-
 
 
